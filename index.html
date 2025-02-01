@@ -64,7 +64,7 @@
 <body>
     <div class="container">
         <h1>数组去重与排序</h1>
-        <textarea id="inputArray" placeholder="请输入一组数字，分隔符可以是逗号、空格、分号等，例如：12, 14;54 11,10;13 12"></textarea>
+        <textarea id="inputArray" placeholder="请输入一组数字，分隔符可以是逗号、空格、分号等，例如：01, 01;04 11,10;13 12"></textarea>
         <button onclick="processArray()">处理数组</button>
         <div class="result" id="result">结果将显示在这里</div>
         <button onclick="copyResult()">复制结果</button>
@@ -92,8 +92,11 @@
             // 排序
             const sortedArray = uniqueArray.sort((a, b) => a - b);
 
+            // 格式化数字，小于 10 的数字前面补零
+            const formattedArray = sortedArray.map(num => num < 10 ? `0${num}` : `${num}`);
+
             // 显示结果
-            document.getElementById('result').innerText = `去重并排序后的数组：${sortedArray.join(', ')}`;
+            document.getElementById('result').innerText = `去重并排序后的数组：${formattedArray.join(' . ')}`;
         }
 
         function copyResult() {
