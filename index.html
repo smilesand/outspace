@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组去重与排序</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333333;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>数组去重与排序</h1>
+        <textarea id="inputArray" placeholder="请输入一组数字，分隔符可以是逗号、空格、分号等，例如：12, 14;54 11,10;13 12"></textarea>
+        <button onclick="processArray()">处理数组</button>
+        <div class="result" id="result">结果将显示在这里</div>
+        <button onclick="copyResult()">复制结果</button>
+    </div>
+
+    <script>
+        function processArray() {
+            // 获取输入框的值
+            const input = document.getElementById('inputArray').value;
+
+            // 使用正则表达式提取所有数字
+            const numbers = input.match(/\d+/g);
+
+            if (!numbers) {
+                document.getElementById('result').innerText = "请输入有效的数字！";
+                return;
+            }
+
+            // 将提取的字符串数组转换为数字数组
+            const array = numbers.map(Number);
+
+            // 去重
+            const uniqueArray = [...new Set(array)];
+
+            // 排序
+            const sortedArray = uniqueArray.sort((a, b) => a - b);
+
+            // 显示结果
+            document.getElementById('result').innerText = `去重并排序后的数组：${sortedArray.join(', ')}`;
+        }
+
+        function copyResult() {
+            // 获取结果内容
+            const resultText = document.getElementById('result').innerText;
+
+            // 复制到剪贴板
+            navigator.clipboard.writeText(resultText)
+                .then(() => {
+                    alert("结果已复制到剪贴板！");
+                })
+                .catch(() => {
+                    alert("复制失败，请手动复制结果。");
+                });
+        }
+    </script>
+</body>
+</html>
