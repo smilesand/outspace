@@ -58,6 +58,7 @@
             border: 1px solid #cccccc;
             border-radius: 5px;
             background-color: #f9f9f9;
+            text-align: left;
         }
     </style>
 </head>
@@ -86,17 +87,33 @@
             // 将提取的字符串数组转换为数字数组
             const array = numbers.map(Number);
 
+            // 记录重复的号码
+            const duplicates = [];
+            const seen = new Set();
+
+            array.forEach(num => {
+                if (seen.has(num)) {
+                    duplicates.push(num);
+                } else {
+                    seen.add(num);
+                }
+            });
+
             // 去重
-            const uniqueArray = [...new Set(array)];
+            const uniqueArray = [...seen];
 
             // 排序
             const sortedArray = uniqueArray.sort((a, b) => a - b);
 
             // 格式化数字，小于 10 的数字前面补零
             const formattedArray = sortedArray.map(num => num < 10 ? `0${num}` : `${num}`);
+            const formattedDuplicates = [...new Set(duplicates)].map(num => num < 10 ? `0${num}` : `${num}`);
 
             // 显示结果
-            document.getElementById('result').innerText = `去重并排序后的数组：${formattedArray.join(' . ')}`;
+            document.getElementById('result').innerHTML = `
+                <strong>去重并排序后的数组：</strong>${formattedArray.join(' . ')}<br>
+                <strong>重复的号码：</strong>${formattedDuplicates.length > 0 ? formattedDuplicates.join(' . ') : '无'}
+            `;
         }
 
         function copyResult() {
