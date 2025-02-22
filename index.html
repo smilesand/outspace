@@ -107,7 +107,7 @@
 
             // 格式化数字，小于 10 的数字前面补零
             const formattedArray = sortedArray.map(num => num < 10 ? `0${num}` : `${num}`);
-            const formattedDuplicates = [...new Set(duplicates)].map(num => num < 10 ? `0${num}` : `${num}`);
+            const formattedDuplicates = [...new Set(duplicates)].map(num => num < 10 ? `0${num}` : `${num}`).sort((a, b) => a - b);
 
             // 显示结果
             document.getElementById('result').innerHTML = `
